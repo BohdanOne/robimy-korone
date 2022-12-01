@@ -1,49 +1,73 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	// @ts-ignore
-	import { LeafletMap, TileLayer, Marker } from 'svelte-leafletjs?client';
+	import { LeafletMap, TileLayer, Marker, Icon, Popup } from 'svelte-leafletjs?client';
+
 	import data from '../data/data.json';
-	
-  type Location = [lat: number, long: number];
-	interface Picture {
-		url: string;
-		location: Location;
-		description: string;
+	import type { Summit } from '$lib/types';
+	import { mapConfig, iconConfig } from '$lib/config';
+	import ProgressBar from './ProgressBar.svelte';
+	import { onMount } from 'svelte';
+
+	const summits = data as Summit[];
+	const revealedMarkers: { [k: string]: boolean } = {};
+
+	let zoom: number;
+
+	const getZoom = (viewport: number) => {
+		return viewport > 740 ? 7 : 6;
 	}
-
-	type Summit = {
-		summitName: string;
-		mountainRange: string;
-		height: number;
-		location: Location;
-		done?: boolean;
-		track?: GeoJSON.FeatureCollection;
-		pictures?: Picture[];
+	const reveal = (summit: string): void => {
+		revealedMarkers[summit] = true;
 	};
 
-	const mapOptions = {
-		center: [50, 19.030278],
-		zoom: 6
-	};
-	const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	const tileLayerOptions = {
-		minZoom: 0,
-		maxZoom: 20,
-		maxNativeZoom: 19,
-		attribution: '© OpenStreetMap contributors'
-	};
+	onMount(() => {
+		zoom = getZoom(window.innerWidth);
+	});
 </script>
 
 <header>
 	<h1>robimy koronę</h1>
+	<ProgressBar {summits} />
 </header>
-<div id="map" style="height: 80vh;">
-	{#if browser}
-		<LeafletMap options={mapOptions}>
-			<TileLayer url={tileUrl} options={tileLayerOptions} />
-			{#each data as summit}
-				<Marker latLng={summit.location} />
+<div>
+	{#if browser && zoom}
+		<LeafletMap options={{ center: [50, 19.030278], zoom }}>
+			<TileLayer url={mapConfig.tileUrl} options={mapConfig.tileLayerOptions} />
+			{#each data as { location, summitName, done } (summitName)}
+				<Marker
+					latLng={location}
+					events={['mouseover', 'keydown']}
+					options={{ title: summitName }}
+					on:mouseover={() => reveal(summitName)}
+					on:keydown={() => reveal(summitName)}
+				>
+					{#if revealedMarkers[summitName]}
+						<Icon options={{ ...iconConfig, iconUrl: done ? 'trophy.svg' : 'map-marker.svg' }} />
+					{:else}
+						<Icon options={{ ...iconConfig, iconUrl: 'question-mark.svg' }} />
+					{/if}
+					<Popup>{summitName}</Popup>
+				</Marker>
 			{/each}
 		</LeafletMap>
 	{/if}
 </div>
+
+<style>
+	div {
+		width: 100vw;
+		height: 100%;
+	}
+
+	header {
+		position: fixed;
+		z-index: var(--over-leaflet);
+		pointer-events: none;
+		inset-block-end: var(--gutter-large);
+		background-color: var(--col-bg-light);
+		border-block: var(--border);
+		width: 100%;
+		text-align: center;
+	}
+</style>
