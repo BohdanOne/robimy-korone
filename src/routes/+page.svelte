@@ -16,7 +16,7 @@
 
 	const getZoom = (viewport: number) => {
 		return viewport > 740 ? 7 : 6;
-	}
+	};
 	const reveal = (summit: string): void => {
 		revealedMarkers[summit] = true;
 	};
@@ -47,7 +47,7 @@
 					{:else}
 						<Icon options={{ ...iconConfig, iconUrl: 'question-mark.svg' }} />
 					{/if}
-					<Popup>{summitName}</Popup>
+					<Popup><a href={`/szczyty/${summitName}`}>{summitName}</a></Popup>
 				</Marker>
 			{/each}
 		</LeafletMap>
