@@ -1,0 +1,123 @@
+@import 'leaflet/dist/leaflet.css';
+
+/* RESET */
+/* https://www.joshwcomeau.com/css/custom-css-reset/ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* other */
+button {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding-inline-start: unset;
+}
+
+/* VARS */
+:root {
+  /* fonts */
+  --font-heading: 'Podkova', serif;
+  --font-regular: 'Source Sans Pro', sans-serif;
+
+  --text-small: 0.8rem;
+  --text-regular: 1rem;
+  --text-large: 1.3rem;
+  --text-x-large: 1.5rem;
+  --text-xx-large: 2rem;
+
+  /* spacing */
+  --gutter-s: 0.5rem;
+  --gutter: 1.3rem;
+  --gutter-large: 1.5rem;
+  --gutter-x-large: 2rem;
+
+  /* colors */
+  --col-bg-heavy: #687e86;
+  --col-bg-light: #ded9d1;
+  --col-primary: #001f3f;
+  --col-secondary: #35568f;
+  --col-ternary: #003f20;
+
+  /* z-index */
+  --over-leaflet: 1001;
+  --main-nav: 1100;
+
+  --border: 0.125rem solid;
+
+  --transition: 300ms ease-in-out;
+}
+
+/* COLORS */
+body {
+  background-color: var(--col-bg-heavy);
+  color: var(--col-primary);
+  font-family: var(--font-regular);
+}
+
+/* TYPOGRAPHY */
+body {
+  font-size: var(--text-regular);
+}
+
+h1,
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+}
+
+h1 {
+  font-size: var(--text-xx-large);
+}
+
+h2 {
+  font-size: var(--text-x-large);
+}
