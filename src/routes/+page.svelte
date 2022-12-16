@@ -3,13 +3,13 @@
 	// @ts-ignore
 	import { LeafletMap, TileLayer, Marker, Icon, Popup } from 'svelte-leafletjs?client';
 
-	import data from '../data/data.json';
+	import { getData } from "../data/get-data";
 	import type { Summit } from '$lib/types';
 	import { mapConfig, iconConfig } from '$lib/config';
 	import ProgressBar from './ProgressBar.svelte';
 	import { onMount } from 'svelte';
 
-	const summits = data as Summit[];
+	const summits = getData() as Summit[];
 	const revealedMarkers: { [k: string]: boolean } = {};
 
 	let zoom: number;
@@ -34,7 +34,7 @@
 	{#if browser && zoom}
 		<LeafletMap options={{ center: [50, 19.030278], zoom }}>
 			<TileLayer url={mapConfig.tileUrl} options={mapConfig.tileLayerOptions} />
-			{#each data as { location, summitName, done } (summitName)}
+			{#each summits as { location, summitName, done } (summitName)}
 				<Marker
 					latLng={location}
 					events={['mouseover', 'keydown']}

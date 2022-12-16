@@ -1,4 +1,7 @@
-import data from '../data/data.json';
+import type { Summit } from "$lib/types";
+import { getData } from "../data/get-data";
+
+const data = getData() as Summit[];
 
 export function match(param: string): boolean {
   const summits = data.map(summit => summit.summitName);
