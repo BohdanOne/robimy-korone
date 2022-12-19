@@ -3,10 +3,10 @@
 	// @ts-ignore
 	import { LeafletMap, TileLayer, Marker, Icon, Popup } from 'svelte-leafletjs?client';
 
-	import { getData } from "../data/get-data";
+	import { getData } from "$lib/data/get-data";
 	import type { Summit } from '$lib/types';
 	import { mapConfig, iconConfig } from '$lib/config';
-	import ProgressBar from './ProgressBar.svelte';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 	import { onMount } from 'svelte';
 
 	const summits = getData() as Summit[];

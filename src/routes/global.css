@@ -79,6 +79,7 @@ ol {
   --gutter: 1.3rem;
   --gutter-large: 1.5rem;
   --gutter-x-large: 2rem;
+  --nav-toggle-button-height: 2rem;
 
   /* colors */
   --col-bg-heavy: #687e86;

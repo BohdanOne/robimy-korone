@@ -1,5 +1,5 @@
 import type { Summit } from "$lib/types";
-import { getData } from "../data/get-data";
+import { getData } from "$lib/data/get-data";
 
 const data = getData() as Summit[];
 
