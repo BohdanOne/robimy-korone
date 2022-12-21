@@ -87,6 +87,7 @@ ol {
   --col-primary: #001f3f;
   --col-secondary: #35568f;
   --col-ternary: #003f20;
+  --col-accent: #d8a242;
 
   /* z-index */
   --over-leaflet: 1001;

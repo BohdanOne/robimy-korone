@@ -26,7 +26,13 @@
 
 <nav>
 	{#if isNavOpen}
-		<button class="close-button" on:click={closeNav} aria-label="Zamknij nawigację">X</button>
+		<button class="close-button" on:click={closeNav} aria-label="Zamknij nawigację">
+			<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M2.21875 0.78125L0.78125 2.21875L9.5625 11L0.78125 19.7812L2.21875 21.2188L11 12.4375L19.7812 21.2188L21.2188 19.7812L12.4375 11L21.2188 2.21875L19.7812 0.78125L11 9.5625L2.21875 0.78125Z"
+				/>
+			</svg>
+		</button>
 		<ul transition:slide={{ duration: 400 }}>
 			<li>
 				<a href="/" on:click={closeNav}>START</a>
@@ -42,9 +48,9 @@
 		</ul>
 	{:else}
 		<button class="open-button" aria-label="Otwórz nawigację" on:click={openNav}>
-			<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+			<svg width="26" height="22" viewBox="0 0 26 22" xmlns="http://www.w3.org/2000/svg">
 				<path
-					d="M2.64841 7.54449C2.84474 7.35031 3.16132 7.35206 3.3555 7.5484L12 16.2889L20.6445 7.5484C20.8387 7.35206 21.1553 7.35031 21.3516 7.54449C21.5479 7.73867 21.5497 8.05525 21.3555 8.25159L12.3555 17.3516C12.2616 17.4466 12.1336 17.5 12 17.5C11.8664 17.5 11.7384 17.4466 11.6445 17.3516L2.6445 8.25159C2.45032 8.05525 2.45207 7.73867 2.64841 7.54449Z"
+					d="M2.21875 0.6875L0.78125 2.09375L13 14.3125L25.2188 2.09375L23.7812 0.6875L13 11.4688L2.21875 0.6875ZM2.21875 7.6875L0.78125 9.09375L13 21.3125L25.2188 9.09375L23.7812 7.6875L13 18.4688L2.21875 7.6875Z"
 				/>
 			</svg>
 		</button>
@@ -75,9 +81,27 @@
 		text-align: center;
 	}
 
-  button {
-    cursor: pointer;
-  }
+	h2 {
+		margin-block-start: var(--gutter);
+	}
+	a {
+		text-decoration: none;
+		font-size: var(--text-x-large);
+	}
+
+	button,
+	a {
+		cursor: pointer;
+		color: var(--col-primary);
+		transition: color var(--transition);
+	}
+
+	button:hover,
+	button:focus-visible,
+	a:hover,
+	a:focus-visible {
+		color: var(--col-accent);
+	}
 
 	.close-button {
 		position: fixed;
@@ -93,6 +117,6 @@
 	}
 
 	svg {
-		fill: var(--col-primary);
+		fill: currentColor;
 	}
 </style>
