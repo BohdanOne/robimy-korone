@@ -79,6 +79,7 @@ ol {
   --gutter: 1.3rem;
   --gutter-large: 1.5rem;
   --gutter-x-large: 2rem;
+  --nav-toggle-button-height: 2rem;
 
   /* colors */
   --col-bg-heavy: #687e86;
@@ -86,6 +87,7 @@ ol {
   --col-primary: #001f3f;
   --col-secondary: #35568f;
   --col-ternary: #003f20;
+  --col-accent: #d8a242;
 
   /* z-index */
   --over-leaflet: 1001;

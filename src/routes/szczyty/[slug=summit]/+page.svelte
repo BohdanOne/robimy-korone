@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Summit } from '$lib/types';
-	import PageSection from './PageSection.svelte';
+	import PageSection from '$lib/components/PageSection.svelte';
 
 	export let data: { summit: Summit };
 
