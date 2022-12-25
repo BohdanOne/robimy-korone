@@ -1,15 +1,17 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	// @ts-ignore
 	import { LeafletMap, TileLayer, Marker, Icon, Popup } from 'svelte-leafletjs?client';
 
-	import { getData } from "$lib/data/get-data";
-	import type { Summit } from '$lib/types';
+	import type { Summit } from 'src/app';
 	import { mapConfig, iconConfig } from '$lib/config';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
-	import { onMount } from 'svelte';
 
-	const summits = getData() as Summit[];
+	export let data: { summits: Summit[] };
+	
+	const { summits } = data;
+
 	const revealedMarkers: { [k: string]: boolean } = {};
 
 	let zoom: number;
@@ -34,20 +36,20 @@
 	{#if browser && zoom}
 		<LeafletMap options={{ center: [50, 19.030278], zoom }}>
 			<TileLayer url={mapConfig.tileUrl} options={mapConfig.tileLayerOptions} />
-			{#each summits as { location, summitName, done } (summitName)}
+			{#each summits as { location, name, slug, done } (name)}
 				<Marker
 					latLng={location}
 					events={['mouseover', 'keydown']}
-					options={{ title: summitName }}
-					on:mouseover={() => reveal(summitName)}
-					on:keydown={() => reveal(summitName)}
+					options={{ title: name }}
+					on:mouseover={() => reveal(name)}
+					on:keydown={() => reveal(name)}
 				>
-					{#if revealedMarkers[summitName]}
+					{#if revealedMarkers[name]}
 						<Icon options={{ ...iconConfig, iconUrl: done ? 'trophy.svg' : 'map-marker.svg' }} />
 					{:else}
 						<Icon options={{ ...iconConfig, iconUrl: 'question-mark.svg' }} />
 					{/if}
-					<Popup><a href={`/szczyty/${summitName}`}>{summitName}</a></Popup>
+					<Popup><a href={`/szczyty/${slug}`}>{name}</a></Popup>
 				</Marker>
 			{/each}
 		</LeafletMap>
