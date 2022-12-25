@@ -94,6 +94,7 @@ ol {
   --main-nav: 1100;
 
   --border: 0.125rem solid;
+  --border-radius: 1em;
 
   --transition: 300ms ease-in-out;
 }

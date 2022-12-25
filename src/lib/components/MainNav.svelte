@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
+	import type { Summit } from 'src/app';
 
-	import type { Summit } from '$lib/types';
-	import { getData } from '$lib/data/get-data';
-
-	const data = getData() as Summit[];
+	export let summits: Summit[];
 
 	let isNavOpen = false;
 
@@ -39,9 +37,9 @@
 			</li>
 			<ol>
 				<h2>Lista szczytów</h2>
-				{#each data as summit}
+				{#each summits as summit}
 					<li>
-						<a href="/szczyty/{summit.summitName}" on:click={closeNav}>{summit.summitName}</a>
+						<a href="/szczyty/{summit.slug}" on:click={closeNav}>{summit.name}</a>
 					</li>
 				{/each}
 			</ol>
