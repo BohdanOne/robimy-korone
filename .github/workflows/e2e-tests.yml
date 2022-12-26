@@ -1,7 +1,7 @@
 name: E2E Tests
 
 env:
-  PUBLIC_SANITY_PROJECT_ID: ${{secrets.SANITY_PROJECT_ID}}
+  PUBLIC_SANITY_PROJECT_ID: ${{secrets.PUBLIC_SANITY_PROJECT_ID}}
 
 on:
   push:
