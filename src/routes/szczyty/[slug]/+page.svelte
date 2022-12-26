@@ -1,11 +1,13 @@
 <script lang="ts">
 	import PageSection from '$lib/components/PageSection.svelte';
+	import Gallery from '$lib/components/Gallery.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
 	$: summit = data.summit;
 	$: track = data.track;
+	$: pictures = data.summit.pictures;
 </script>
 
 <h1>{summit.name}</h1>
@@ -17,6 +19,11 @@
 		zapis wejścia z: {new Date(track?.features[0].properties.time).toLocaleDateString('pl-PL', {
 			dateStyle: 'full'
 		})}
+	</PageSection>
+{/if}
+{#if pictures?.length}
+	<PageSection title="Galeria">
+		<Gallery pictures={pictures} />
 	</PageSection>
 {/if}
 

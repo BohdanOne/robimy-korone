@@ -82,8 +82,10 @@ ol {
   --nav-toggle-button-height: 2rem;
 
   /* colors */
-  --col-bg-heavy: #687e86;
-  --col-bg-light: #ded9d1;
+  --bg-heavy: 104, 126, 134; /* #687e86 */
+  --bg-light: 222, 217, 209; /* #ded9d1 */
+  --col-bg-heavy: rgb(var(--bg-heavy));
+  --col-bg-light: rgb(var(--bg-light));
   --col-primary: #001f3f;
   --col-secondary: #35568f;
   --col-ternary: #003f20;

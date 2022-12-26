@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { fetchSummit } from "$lib/data/sanity-client";
+import { fetchSummit } from "$lib/utils/sanity-client";
 import { getGeoJson } from '$lib/utils/get-geo-json';
 import type { GeoJson } from 'src/app';
 import type { RouteParams } from '.svelte-kit/types/src/routes/szczyty/[slug]/$types';

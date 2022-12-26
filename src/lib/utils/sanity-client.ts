@@ -1,4 +1,4 @@
-import { SANITY_PROJECT_ID } from '$env/static/private';
+import { PUBLIC_SANITY_PROJECT_ID } from '$env/static/public';
 import sanityClient from "@sanity/client";
 
 export const fetchAllSummits = async () => await client.fetch(ALL_SUMMITS);
@@ -9,7 +9,7 @@ export const fetchSummit = async (slug: string) => {
 }
 
 const client = sanityClient({
-  projectId: SANITY_PROJECT_ID,
+  projectId: PUBLIC_SANITY_PROJECT_ID,
   dataset: import.meta.env.MODE === 'production' ? 'production' : 'dev',
   apiVersion: "2022-12-22",
   useCdn: false
@@ -24,7 +24,13 @@ const ALL_SUMMITS = `*[_type == "summit"] {
     alt, lat, lng
   },
   "trackUrl": track.asset->url,
-  pictures,
+  pictures[] {
+    cloudinaryPublicId,
+    description,
+      location {
+          alt, lat, lng
+      },
+  },
   done,
   doneBefore
 } | order(location.alt asc)`;
@@ -37,7 +43,13 @@ const summitQuery = (slug: string) => `*[_type == "summit" && slug.current =="${
     alt, lat, lng
   },
   "trackUrl": track.asset->url,
-  pictures,
+  pictures[] {
+    cloudinaryPublicId,
+    description,
+      location {
+          alt, lat, lng
+      },
+  },
   done,
   doneBefore
 }`;

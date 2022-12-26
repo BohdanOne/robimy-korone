@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { fetchAllSummits } from "$lib/data/sanity-client";
+import { fetchAllSummits } from "$lib/utils/sanity-client";
 
 export const load = (async () => {
   const summits = await fetchAllSummits();
