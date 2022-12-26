@@ -10,7 +10,7 @@
 </script>
 
 <figure class="image-container" style:width={`${width}px`}>
-	<img {src} {alt} title={alt} {width} {height} />
+	<img {src} {alt} title={alt} {width} {height} loading="lazy"/>
 	<figcaption>{alt}</figcaption>
 </figure>
 
