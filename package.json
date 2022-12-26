@@ -47,6 +47,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@cloudinary/url-gen": "^1.8.7",
 		"@mapbox/togeojson": "^0.16.0",
 		"@sanity/client": "^3.4.1",
 		"xmldom": "^0.6.0"
