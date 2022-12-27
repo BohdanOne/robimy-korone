@@ -2,6 +2,7 @@
 	import PageSection from '$lib/components/PageSection.svelte';
 	import Gallery from '$lib/components/Gallery.svelte';
 	import type { PageData } from './$types';
+	import SummitInfo from '$lib/components/SummitInfo.svelte';
 
 	export let data: PageData;
 
@@ -11,9 +12,7 @@
 </script>
 
 <h1>{summit.name}</h1>
-<PageSection title="Podstawowe dane">
-	{summit.name}
-</PageSection>
+<SummitInfo {summit} />
 {#if track}
 	<PageSection title="Mapa">
 		zapis wejścia z: {new Date(track?.features[0].properties.time).toLocaleDateString('pl-PL', {
@@ -23,7 +22,7 @@
 {/if}
 {#if pictures?.length}
 	<PageSection title="Galeria">
-		<Gallery pictures={pictures} />
+		<Gallery {pictures} />
 	</PageSection>
 {/if}
 
