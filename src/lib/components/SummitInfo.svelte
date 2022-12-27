@@ -29,6 +29,9 @@
 </PageSection>
 
 <style>
+	li:not(li:last-of-type) {
+		margin-block-end: var(--gutter-s);
+	}
 	span {
 		font-weight: bold;
 		margin-inline-start: var(--gutter-s);
