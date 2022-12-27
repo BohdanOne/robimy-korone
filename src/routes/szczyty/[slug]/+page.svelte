@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import type { PageData } from './$types';
 	import PageSection from '$lib/components/PageSection.svelte';
 	import Gallery from '$lib/components/Gallery.svelte';
-	import type { PageData } from './$types';
 	import SummitInfo from '$lib/components/SummitInfo.svelte';
+	import SummitMap from '$lib/components/SummitMap.svelte';
 
 	export let data: PageData;
 
@@ -13,13 +15,11 @@
 
 <h1>{summit.name}</h1>
 <SummitInfo {summit} />
-{#if track}
-	<PageSection title="Mapa">
-		zapis wejścia z: {new Date(track?.features[0].properties.time).toLocaleDateString('pl-PL', {
-			dateStyle: 'full'
-		})}
-	</PageSection>
+
+{#if browser && track}
+	<SummitMap {summit} {track} />
 {/if}
+
 {#if pictures?.length}
 	<PageSection title="Galeria">
 		<Gallery {pictures} />
