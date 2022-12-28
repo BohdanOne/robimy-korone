@@ -1,9 +1,10 @@
 import { PUBLIC_SANITY_PROJECT_ID } from '$env/static/public';
 import sanityClient from "@sanity/client";
+import type { Summit } from 'src/app';
 
-export const fetchAllSummits = async () => await client.fetch(ALL_SUMMITS);
+export const fetchAllSummits = async (): Promise<Summit[]> => await client.fetch(ALL_SUMMITS);
 
-export const fetchSummit = async (slug: string) => {
+export const fetchSummit = async (slug: string): Promise<Summit> => {
   const summit = await client.fetch(summitQuery(slug));
   return summit[0];
 }

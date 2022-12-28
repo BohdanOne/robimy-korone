@@ -1,32 +1,51 @@
 <script lang="ts">
-	import type { Summit } from 'src/app';
-	import PageSection from '$lib/components/PageSection.svelte';
 	// @ts-ignore
 	import { LeafletMap, TileLayer, Marker, Icon, GeoJSON } from 'svelte-leafletjs?client';
+	import type { Map, LatLngExpression } from 'leaflet';
+
+	import type { Summit, LMap } from 'src/app';
+	import { isMap } from '$lib/utils/type-guards';
 	import { mapConfig, iconConfig } from '$lib/config';
+	import PageSection from '$lib/components/PageSection.svelte';
 
 	export let summit: Summit;
 	export let track: GeoJSON.FeatureCollection;
+
+	let leafletMap: LMap | undefined;
+	let map: Map;
+
+	$: center = [summit.location.lat, summit.location.lng] satisfies LatLngExpression;
+	$: if (isMap(leafletMap)) {
+		map = leafletMap.getMap();
+		map.panTo(center);
+	}
 </script>
 
 <PageSection title="Mapa">
 	<figure>
-		<figcaption>
-			Zapis wejścia z:
-			<span>
-				{new Date(track?.features?.[0]?.properties?.time).toLocaleDateString('pl-PL', {
-					dateStyle: 'full'
-				})}
-			</span>
-		</figcaption>
-		<LeafletMap options={{ center: [summit.location.lat, summit.location.lng], zoom: 12 }}>
+		{#if track}
+			<figcaption>
+				Zapis wejścia z:
+				<span>
+					{new Date(track.features?.[0]?.properties?.time).toLocaleDateString('pl-PL', {
+						dateStyle: 'full'
+					})}
+				</span>
+			</figcaption>
+		{/if}
+		<LeafletMap options={{ center, zoom: 12 }} bind:this={leafletMap}>
 			<TileLayer url={mapConfig.tileUrl} options={mapConfig.tileLayerOptions} />
 			<Marker latLng={summit.location}>
 				<Icon
-					options={{ ...iconConfig, iconUrl: summit.done ? '/trophy.svg' : '/map-marker.svg' }}
+					options={{
+						...iconConfig,
+						iconUrl: summit.done ? '/map-marker-check.svg' : '/map-marker.svg'
+					}}
 				/>
 			</Marker>
-			<GeoJSON data={track} />
+			{#if track}
+				<GeoJSON data={track} />
+			{/if}
 		</LeafletMap>
 	</figure>
 </PageSection>
@@ -38,9 +57,9 @@
 		height: 40vh;
 	}
 
-  figcaption {
-    margin-block-end: var(--gutter-s);
-  }
+	figcaption {
+		margin-block-end: var(--gutter-s);
+	}
 
 	span {
 		font-weight: bold;
