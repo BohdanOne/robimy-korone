@@ -16,7 +16,7 @@
 <h1>{summit.name}</h1>
 <SummitInfo {summit} />
 
-{#if browser && track}
+{#if browser}
 	<SummitMap {summit} {track} />
 {/if}
 

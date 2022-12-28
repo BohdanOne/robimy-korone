@@ -4,11 +4,11 @@
 	// @ts-ignore
 	import { LeafletMap, TileLayer, Marker, Icon, Popup } from 'svelte-leafletjs?client';
 
-	import type { Summit } from 'src/app';
+	import type { PageData } from './$types';
 	import { mapConfig, iconConfig } from '$lib/config';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
 
-	export let data: { summits: Summit[] };
+	export let data: PageData;
 	
 	const { summits } = data;
 
@@ -19,6 +19,7 @@
 	const getZoom = (viewport: number) => {
 		return viewport > 740 ? 7 : 6;
 	};
+
 	const reveal = (summit: string): void => {
 		revealedMarkers[summit] = true;
 	};
@@ -45,9 +46,9 @@
 					on:keydown={() => reveal(name)}
 				>
 					{#if revealedMarkers[name]}
-						<Icon options={{ ...iconConfig, iconUrl: done ? 'trophy.svg' : 'map-marker.svg' }} />
+						<Icon options={{ ...iconConfig, iconUrl: done ? 'map-marker-check.svg' : 'map-marker.svg' }} />
 					{:else}
-						<Icon options={{ ...iconConfig, iconUrl: 'question-mark.svg' }} />
+						<Icon options={{ ...iconConfig, iconUrl: 'map-marker.svg' }} />
 					{/if}
 					<Popup><a href={`/szczyty/${slug}`}>{name}</a></Popup>
 				</Marker>

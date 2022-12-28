@@ -2,10 +2,10 @@
 	import './global.css';
 	import 'leaflet/dist/leaflet.css';
 	
-	import type { Summit } from 'src/app';
+	import type { LayoutData } from './$types';
 	import MainNav from '$lib/components/MainNav.svelte';
 
-	export let data: { summits: Summit[] };
+	export let data: LayoutData;
 </script>
 
 <MainNav summits={data.summits}/>

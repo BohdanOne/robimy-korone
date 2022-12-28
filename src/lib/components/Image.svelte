@@ -27,8 +27,8 @@
 		background: var(--col-bg-heavy);
 		background: linear-gradient(
 			0deg,
-			rgba(var(--bg-heavy), 0.9038209033613446) 0%,
-			rgba(var(--bg-light), 0.8730085784313726) 77%
+			rgba(var(--bg-heavy), 0.90) 0%,
+			rgba(var(--bg-light), 0.87) 77%
 		);
 
     opacity: 0;

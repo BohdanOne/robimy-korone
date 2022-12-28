@@ -19,7 +19,7 @@ export type GeoJson = {
 } | null;
 
 export type Picture = {
-  cloudinaryPublicId?: string;
+  cloudinaryPublicId: string;
   description?: string;
   location?: GeoPoint
 }
@@ -34,3 +34,5 @@ export type Summit = {
   slug: string;
   trackUrl?: string,
 }
+
+export type LMap = { getMap: () => Map };
