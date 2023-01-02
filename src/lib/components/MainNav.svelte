@@ -1,28 +1,42 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import type { Summit } from 'src/app';
 
 	export let summits: Summit[];
 
 	let isNavOpen = false;
+	let body: HTMLBodyElement | null;
 
 	function closeNav() {
 		isNavOpen = false;
+		if (body) {
+			body.style.position = 'relative';
+			body.removeEventListener('keydown', handleKey);
+		}
 	}
 
 	function openNav() {
 		isNavOpen = true;
+		if (body) {
+			body.style.position = 'fixed';
+			body.addEventListener('keydown', handleKey);
+		}
 	}
 
 	function handleKey(e: KeyboardEvent) {
-		if (!isNavOpen) return;
-		if (e.code === 'Escape') isNavOpen = false;
+		if (e.code === 'Escape') closeNav();
 	}
+
+	onMount(() => {
+		body = document.querySelector('body');
+		return () => {
+			closeNav();
+		};
+	});
 </script>
 
-<svelte:window on:keydown={handleKey} />
-
-<nav>
+<nav class:open={isNavOpen}>
 	{#if isNavOpen}
 		<button class="close-button" on:click={closeNav} aria-label="Zamknij nawigację">
 			<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
@@ -65,10 +79,15 @@
 		border-block-end: var(--border);
 	}
 
-	ul {
-		padding: var(--gutter);
+	nav.open {
+		height: 100%;
 		min-height: 100vh;
 		overflow: scroll;
+		overscroll-behavior: contain;
+	}
+
+	ul {
+		padding: var(--gutter);
 	}
 
 	ul,
