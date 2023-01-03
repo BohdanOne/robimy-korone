@@ -9,7 +9,7 @@
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
 
 	export let data: PageData;
-	
+
 	const { summits } = data;
 
 	const revealedMarkers: { [k: string]: boolean } = {};
@@ -46,7 +46,9 @@
 					on:keydown={() => reveal(name)}
 				>
 					{#if revealedMarkers[name]}
-						<Icon options={{ ...iconConfig, iconUrl: done ? 'map-marker-check.svg' : 'map-marker.svg' }} />
+						<Icon
+							options={{ ...iconConfig, iconUrl: done ? 'map-marker-check.svg' : 'map-marker.svg' }}
+						/>
 					{:else}
 						<Icon options={{ ...iconConfig, iconUrl: 'map-marker.svg' }} />
 					{/if}
@@ -72,5 +74,33 @@
 		border-block: var(--border);
 		width: 100%;
 		text-align: center;
+	}
+
+	:global(.leaflet-popup .leaflet-popup-content-wrapper),
+	:global(.leaflet-popup .leaflet-popup-tip-container .leaflet-popup-tip) {
+		background-color: rgba(var(--bg-light), 0.8);
+	}
+
+	:global(.leaflet-popup a.leaflet-popup-close-button) {
+		color: var(--col-primary);
+		transition: color var(--transition);
+	}
+
+	:global(.leaflet-popup .leaflet-popup-content-wrapper a) {
+		display: block;
+		font-family: var(--font-regular);
+		font-size: var(--text-regular);
+		font-weight: 800;
+		color: var(--col-primary);
+		text-align: center;
+		text-decoration: none;
+		transition: color var(--transition);
+	}
+
+	:global(.leaflet-popup .leaflet-popup-content-wrapper a:hover),
+	:global(.leaflet-popup .leaflet-popup-content-wrapper a:focus-visible),
+	:global(.leaflet-popup a.leaflet-popup-close-button:hover),
+	:global(.leaflet-popup a.leaflet-popup-close-button:focus-visible) {
+		color: var(--col-accent);
 	}
 </style>
